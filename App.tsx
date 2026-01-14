@@ -52,16 +52,16 @@ const App: React.FC = () => {
     setProcessLogs([]);
     
     const logs = [
-      "> HANDSHAKE: ESTABELECENDO CONEXÃO COM CENTRAL VM...",
-      "> ANALISANDO DNA DA MARCA: " + formData.brandName.toUpperCase(),
-      "> CRIPTOGRAFANDO DADOS SENSÍVEIS (AES-GCM)...",
-      "> MAPEANDO ECOSSISTEMA E TERRITÓRIO COMPETITIVO...",
-      "> SINCRONIZANDO MATRIZ DE ALQUIMIA DIGITAL...",
+      "> HANDSHAKE: ESTABELECENDO CONEXÃO...",
+      "> ANALISANDO DNA: " + (formData.brandName || "TEMP").toUpperCase(),
+      "> CRIPTOGRAFANDO DADOS (AES-GCM)...",
+      "> MAPEANDO TERRITÓRIO COMPETITIVO...",
+      "> SINCRONIZANDO ALQUIMIA DIGITAL...",
       "> TRANSMISSÃO COMPLETA. STATUS: 200 OK"
     ];
 
     for (let i = 0; i < logs.length; i++) {
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 400));
       setProcessLogs(prev => [...prev, logs[i]]);
     }
 
@@ -86,7 +86,7 @@ const App: React.FC = () => {
         throw new Error("Falha no servidor");
       }
     } catch (error) {
-      alert("ERRO DE TRANSMISSÃO: Verifique sua conexão com o ecossistema.");
+      alert("ERRO DE TRANSMISSÃO: Verifique sua conexão.");
     } finally {
       setIsProcessing(false);
     }
@@ -94,42 +94,45 @@ const App: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6 bg-black">
-        <CircuitDecoration position="top-left" />
-        <CircuitDecoration position="bottom-right" className="rotate-180" />
+      <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 bg-black overflow-hidden relative">
+        <CircuitDecoration position="top-left" className="opacity-10 scale-75 sm:scale-100" />
+        <CircuitDecoration position="bottom-right" className="rotate-180 opacity-10 scale-75 sm:scale-100" />
         
-        <div className="glass-box max-w-2xl w-full p-12 border-[#00FF00]/40 text-center relative scanline-anim">
-          <div className="mb-10 flex justify-center">
-            <div className="w-20 h-20 rounded-full border border-[#00FF00] flex items-center justify-center shadow-[0_0_30px_rgba(0,255,0,0.2)]">
-              <svg className="w-10 h-10 text-[#00FF00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="glass-box max-w-2xl w-full p-6 sm:p-12 border-[#00FF00]/40 text-center relative scanline-anim z-10">
+          <div className="mb-6 sm:mb-10 flex justify-center">
+            <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full border border-[#00FF00] flex items-center justify-center shadow-[0_0_30px_rgba(0,255,0,0.2)]">
+              <svg className="w-7 h-7 sm:w-10 sm:h-10 text-[#00FF00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
           </div>
           
-          <h1 className="text-4xl font-black uppercase tracking-tighter mb-2 text-white italic">
+          <h1 className="text-2xl sm:text-4xl font-black uppercase tracking-tighter mb-2 text-white italic leading-tight">
             Alquimia Iniciada
           </h1>
-          <p className="font-mono text-[10px] text-[#00FF00] mb-10 uppercase tracking-[0.4em] opacity-70">
+          <p className="font-mono text-[8px] sm:text-[10px] text-[#00FF00] mb-8 sm:mb-10 uppercase tracking-[0.3em] sm:tracking-[0.4em] opacity-70">
             // Protocolo Gerado com Sucesso
           </p>
 
-          <div className="bg-black/60 p-8 rounded-lg border border-gray-800 text-left font-mono text-[11px] text-gray-400 mb-10 space-y-3 leading-relaxed">
-            <p className="text-[#00FF00] mb-4 font-bold border-b border-gray-800 pb-2 flex justify-between">
+          <div className="bg-black/60 p-4 sm:p-8 rounded-lg border border-gray-800 text-left font-mono text-[9px] sm:text-[11px] text-gray-400 mb-8 sm:mb-10 space-y-3 leading-relaxed overflow-x-auto">
+            <p className="text-[#00FF00] mb-4 font-bold border-b border-gray-800 pb-2 flex flex-col sm:flex-row justify-between gap-2">
               <span>RESUMO_DA_OPERACAO</span>
-              <span>ID: {protocolNumber}</span>
+              <span className="text-[8px] sm:text-[9px] opacity-70">ID: {protocolNumber}</span>
             </p>
             <p><span className="text-gray-600">CLIENTE:</span> {formData.brandName}</p>
             <p><span className="text-gray-600">EMAIL:</span> {formData.userEmail}</p>
-            <p><span className="text-gray-600">STATUS:</span> <span className="bg-[#00FF00]/10 text-[#00FF00] px-1">AGUARDANDO ANALISE TÉCNICA</span></p>
-            <p className="mt-6 pt-4 border-t border-gray-900 text-[10px] italic">
+            <p className="flex items-center gap-2">
+              <span className="text-gray-600">STATUS:</span> 
+              <span className="bg-[#00FF00]/10 text-[#00FF00] px-1 text-[8px] sm:text-[10px]">ANALISE_TECNICA_PENDENTE</span>
+            </p>
+            <p className="mt-6 pt-4 border-t border-gray-900 text-[8px] sm:text-[10px] italic">
               Nossos engenheiros entrarão em contato em até 48 horas úteis para apresentar o mapa de execução.
             </p>
           </div>
 
           <button 
             onClick={() => window.location.reload()}
-            className="group font-mono text-[10px] uppercase tracking-widest text-gray-500 hover:text-[#00FF00] transition-all flex items-center gap-2 mx-auto"
+            className="group font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-gray-500 hover:text-[#00FF00] transition-all flex items-center gap-2 mx-auto"
           >
             <span className="opacity-0 group-hover:opacity-100 transition-opacity">&gt;</span>
             Reiniciar Protocolo
@@ -141,158 +144,158 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-12 relative overflow-hidden">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 relative overflow-x-hidden">
       {isProcessing && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl p-6">
-          <div className="glass-box max-w-lg w-full p-10 border-[#00FF00]/30 relative scanline-anim">
-            <h2 className="font-mono text-[#00FF00] text-sm mb-8 flex items-center gap-3">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 sm:p-6">
+          <div className="glass-box max-w-lg w-full p-6 sm:p-10 border-[#00FF00]/30 relative scanline-anim">
+            <h2 className="font-mono text-[#00FF00] text-xs sm:text-sm mb-6 sm:mb-8 flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-[#00FF00] animate-ping" />
               CENTRAL_PROCESS_v1.0
             </h2>
-            <div className="font-mono text-[10px] text-gray-400 space-y-3">
+            <div className="font-mono text-[9px] sm:text-[10px] text-gray-400 space-y-3">
               {processLogs.map((log, i) => (
                 <p key={i} className="animate-in fade-in slide-in-from-left-4 duration-500">
                   {log}
                 </p>
               ))}
             </div>
-            <div className="mt-10 h-1 bg-gray-900 overflow-hidden">
+            <div className="mt-8 sm:mt-10 h-1 bg-gray-900 overflow-hidden">
               <div className="h-full bg-[#00FF00] animate-[shimmer_2s_infinite] w-full shadow-[0_0_15px_#00FF00]" />
             </div>
           </div>
         </div>
       )}
 
-      <CircuitDecoration position="top-left" />
-      <CircuitDecoration position="top-right" className="rotate-90" />
-      <CircuitDecoration position="bottom-left" className="-rotate-90" />
-      <CircuitDecoration position="bottom-right" className="rotate-180" />
+      <CircuitDecoration position="top-left" className="opacity-10 sm:opacity-20 scale-75 sm:scale-100" />
+      <CircuitDecoration position="top-right" className="rotate-90 opacity-10 sm:opacity-20 scale-75 sm:scale-100" />
+      <CircuitDecoration position="bottom-left" className="-rotate-90 opacity-10 sm:opacity-20 scale-75 sm:scale-100" />
+      <CircuitDecoration position="bottom-right" className="rotate-180 opacity-10 sm:opacity-20 scale-75 sm:scale-100" />
 
-      <header className="mb-24 border-b border-gray-800 pb-16 relative">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
-          <div>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="bg-[#00FF00] text-black px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] font-mono shadow-[0_0_15px_rgba(0,255,0,0.3)]">
+      <header className="mb-12 sm:mb-24 border-b border-gray-800 pb-10 sm:pb-16 relative">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 sm:gap-10">
+          <div className="w-full">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-4 sm:mb-6">
+              <span className="bg-[#00FF00] text-black px-2 sm:px-3 py-1 text-[7px] sm:text-[10px] font-black uppercase tracking-[0.2em] font-mono shadow-[0_0_15px_rgba(0,255,0,0.3)]">
                 BUILD_2026.04
               </span>
-              <span className="text-gray-600 font-mono text-[10px] uppercase tracking-widest border-l border-gray-800 pl-4">
+              <span className="text-gray-600 font-mono text-[7px] sm:text-[10px] uppercase tracking-widest border-l border-gray-800 pl-2 sm:pl-4">
                 Status: Grid Online
               </span>
             </div>
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase mb-2 leading-none italic">
+            <h1 className="text-4xl sm:text-7xl md:text-8xl font-black tracking-tighter uppercase mb-2 leading-[0.9] italic break-words">
               VMsolutions
             </h1>
-            <p className="text-[#00FF00] font-mono text-sm tracking-[0.5em] uppercase opacity-60">
+            <p className="text-[#00FF00] font-mono text-[10px] sm:text-sm tracking-[0.2em] sm:tracking-[0.5em] uppercase opacity-60">
               Code. Craft. Culture.
             </p>
           </div>
         </div>
 
-        <div className="mt-16 glass-box p-8 border-l-2 border-[#00FF00]">
-          <h3 className="text-[#00FF00] font-mono text-xs font-bold uppercase mb-3 tracking-widest">
+        <div className="mt-10 sm:mt-16 glass-box p-5 sm:p-8 border-l-2 border-[#00FF00]">
+          <h3 className="text-[#00FF00] font-mono text-[9px] sm:text-xs font-bold uppercase mb-2 tracking-widest">
             Imersão Diagnóstica
           </h3>
-          <p className="text-gray-400 text-sm leading-relaxed max-w-2xl font-light">
+          <p className="text-gray-400 text-[11px] sm:text-sm leading-relaxed max-w-2xl font-light">
             Mapeie o DNA do seu organismo digital. Cada resposta abaixo servirá como coordenada para nossa engenharia criativa.
           </p>
         </div>
       </header>
 
-      <form onSubmit={handleSubmit} className="relative z-10">
+      <form onSubmit={handleSubmit} className="relative z-10 pb-32 sm:pb-40">
         <FormSection number="01" title="Identidade do Organismo" subtitle="Arquitetura do Negócio">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
             <div className="group">
-              <label className="block font-mono text-[10px] text-gray-500 uppercase mb-3 group-focus-within:text-[#00FF00] transition-colors">Nome da Marca</label>
-              <input required type="text" name="brandName" value={formData.brandName} onChange={handleInputChange} className="w-full p-5 text-white placeholder-gray-800" placeholder="Ex: CyberDyne Systems" />
+              <label className="block font-mono text-[9px] sm:text-[10px] text-gray-500 uppercase mb-2 group-focus-within:text-[#00FF00] transition-colors">Nome da Marca</label>
+              <input required type="text" name="brandName" value={formData.brandName} onChange={handleInputChange} className="w-full p-4 sm:p-5 text-white placeholder-gray-800 text-sm sm:text-base" placeholder="Ex: CyberDyne Systems" />
             </div>
             <div className="group">
-              <label className="block font-mono text-[10px] text-gray-500 uppercase mb-3 group-focus-within:text-[#00FF00] transition-colors">E-mail Corporativo</label>
-              <input required type="email" name="userEmail" value={formData.userEmail} onChange={handleInputChange} className="w-full p-5 text-white placeholder-gray-800" placeholder="contato@empresa.com" />
+              <label className="block font-mono text-[9px] sm:text-[10px] text-gray-500 uppercase mb-2 group-focus-within:text-[#00FF00] transition-colors">E-mail Corporativo</label>
+              <input required type="email" name="userEmail" value={formData.userEmail} onChange={handleInputChange} className="w-full p-4 sm:p-5 text-white placeholder-gray-800 text-sm sm:text-base" placeholder="contato@empresa.com" />
             </div>
           </div>
-          <div className="mt-8 group">
-            <label className="block font-mono text-[10px] text-gray-500 uppercase mb-3 group-focus-within:text-[#00FF00] transition-colors">A Alma do Negócio</label>
-            <textarea required name="brandSoul" value={formData.brandSoul} onChange={handleInputChange} className="w-full p-5 h-40 text-white" placeholder="Descreva a atmosfera e o propósito..." />
+          <div className="mt-5 sm:mt-8 group">
+            <label className="block font-mono text-[9px] sm:text-[10px] text-gray-500 uppercase mb-2 group-focus-within:text-[#00FF00] transition-colors">A Alma do Negócio</label>
+            <textarea required name="brandSoul" value={formData.brandSoul} onChange={handleInputChange} className="w-full p-4 sm:p-5 h-32 sm:h-40 text-white text-sm sm:text-base" placeholder="Descreva a atmosfera e o propósito..." />
           </div>
-          <div className="mt-8 group">
-            <label className="block font-mono text-[10px] text-gray-500 uppercase mb-3 group-focus-within:text-[#00FF00] transition-colors">O Impacto Desejado</label>
-            <textarea required name="realWhy" value={formData.realWhy} onChange={handleInputChange} className="w-full p-5 h-24 text-white" placeholder="Que transformação você busca?" />
+          <div className="mt-5 sm:mt-8 group">
+            <label className="block font-mono text-[9px] sm:text-[10px] text-gray-500 uppercase mb-2 group-focus-within:text-[#00FF00] transition-colors">O Impacto Desejado</label>
+            <textarea required name="realWhy" value={formData.realWhy} onChange={handleInputChange} className="w-full p-4 sm:p-5 h-20 sm:h-24 text-white text-sm sm:text-base" placeholder="Que transformação você busca?" />
           </div>
         </FormSection>
 
         <FormSection number="02" title="Ecossistema e Público" subtitle="Mapeamento de Território">
-          <div className="space-y-8">
+          <div className="space-y-5 sm:space-y-8">
             <div className="group">
-              <label className="block font-mono text-[10px] text-gray-500 uppercase mb-3 group-focus-within:text-[#00FF00] transition-colors">Público-Alvo</label>
-              <textarea required name="targetAudience" value={formData.targetAudience} onChange={handleInputChange} className="w-full p-5 h-24 text-white" placeholder="Quem são? O que valorizam?" />
+              <label className="block font-mono text-[9px] sm:text-[10px] text-gray-500 uppercase mb-2 group-focus-within:text-[#00FF00] transition-colors">Público-Alvo</label>
+              <textarea required name="targetAudience" value={formData.targetAudience} onChange={handleInputChange} className="w-full p-4 sm:p-5 h-20 sm:h-24 text-white text-sm sm:text-base" placeholder="Quem são? O que valorizam?" />
             </div>
             <div className="group">
-              <label className="block font-mono text-[10px] text-gray-500 uppercase mb-3 group-focus-within:text-[#00FF00] transition-colors">Vizinhos de Mercado</label>
-              <textarea required name="competitiveTerritory" value={formData.competitiveTerritory} onChange={handleInputChange} className="w-full p-5 h-24 text-white" placeholder="Principais competidores e seu diferencial..." />
+              <label className="block font-mono text-[9px] sm:text-[10px] text-gray-500 uppercase mb-2 group-focus-within:text-[#00FF00] transition-colors">Vizinhos de Mercado</label>
+              <textarea required name="competitiveTerritory" value={formData.competitiveTerritory} onChange={handleInputChange} className="w-full p-4 sm:p-5 h-20 sm:h-24 text-white text-sm sm:text-base" placeholder="Principais competidores e seu diferencial..." />
             </div>
           </div>
         </FormSection>
 
         <FormSection number="03" title="Engenharia de Solução" subtitle="Especificações de Backend">
-          <div className="space-y-10">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="space-y-6 sm:space-y-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5">
               {[
                 { id: 'branding' as const, label: 'Branding', desc: 'DNA Visual' },
-                { id: 'webDev' as const, label: 'Web Dev', desc: 'Alta Performance' },
+                { id: 'webDev' as const, label: 'Web Dev', desc: 'Performance' },
                 { id: 'socialMedia' as const, label: 'Social', desc: 'Engajamento' },
               ].map((s) => (
                 <button
                   key={s.id}
                   type="button"
                   onClick={() => handleCheckboxChange(s.id)}
-                  className={`p-8 text-left border transition-all duration-500 relative overflow-hidden group ${
+                  className={`p-4 sm:p-8 text-left border transition-all duration-500 relative overflow-hidden group ${
                     formData.services[s.id] ? 'border-[#00FF00] bg-[#00FF00]/5 shadow-[0_0_20px_rgba(0,255,0,0.1)]' : 'border-gray-900 bg-black/40'
                   }`}
                 >
-                  {formData.services[s.id] && <div className="absolute top-0 right-0 w-16 h-16 bg-[#00FF00]/10 rotate-45 translate-x-8 -translate-y-8" />}
-                  <h4 className={`text-xl font-bold mb-1 ${formData.services[s.id] ? 'text-white' : 'text-gray-500'}`}>{s.label}</h4>
-                  <span className="font-mono text-[9px] uppercase tracking-widest opacity-40">{s.desc}</span>
-                  <div className={`mt-4 font-mono text-[10px] ${formData.services[s.id] ? 'text-[#00FF00]' : 'text-gray-700'}`}>
+                  {formData.services[s.id] && <div className="absolute top-0 right-0 w-10 h-10 sm:w-16 sm:h-16 bg-[#00FF00]/10 rotate-45 translate-x-5 sm:translate-x-8 -translate-y-5 sm:-translate-y-8" />}
+                  <h4 className={`text-base sm:text-xl font-bold mb-0.5 sm:mb-1 ${formData.services[s.id] ? 'text-white' : 'text-gray-500'}`}>{s.label}</h4>
+                  <span className="font-mono text-[7px] sm:text-[9px] uppercase tracking-widest opacity-40 leading-none">{s.desc}</span>
+                  <div className={`mt-3 sm:mt-4 font-mono text-[8px] sm:text-[10px] ${formData.services[s.id] ? 'text-[#00FF00]' : 'text-gray-700'}`}>
                     {formData.services[s.id] ? '[✓ ATIVADO]' : '[+ SELECIONAR]'}
                   </div>
                 </button>
               ))}
             </div>
             <div className="group">
-              <label className="block font-mono text-[10px] text-gray-500 uppercase mb-3 group-focus-within:text-[#00FF00] transition-colors">Infraestrutura Atual</label>
-              <input required type="text" name="currentMaturity" value={formData.currentMaturity} onChange={handleInputChange} className="w-full p-5 text-white" placeholder="Links de redes e site atual..." />
+              <label className="block font-mono text-[9px] sm:text-[10px] text-gray-500 uppercase mb-2 group-focus-within:text-[#00FF00] transition-colors">Infraestrutura Atual</label>
+              <input required type="text" name="currentMaturity" value={formData.currentMaturity} onChange={handleInputChange} className="w-full p-4 sm:p-5 text-white text-sm sm:text-base" placeholder="Links de redes e site atual..." />
             </div>
             <div className="group">
-              <label className="block font-mono text-[10px] text-gray-500 uppercase mb-3 group-focus-within:text-[#00FF00] transition-colors">Fricções Técnicas</label>
-              <textarea required name="techPainPoints" value={formData.techPainPoints} onChange={handleInputChange} className="w-full p-5 h-24 text-white" placeholder="O que te impede de escalar hoje?" />
+              <label className="block font-mono text-[9px] sm:text-[10px] text-gray-500 uppercase mb-2 group-focus-within:text-[#00FF00] transition-colors">Fricções Técnicas</label>
+              <textarea required name="techPainPoints" value={formData.techPainPoints} onChange={handleInputChange} className="w-full p-4 sm:p-5 h-20 sm:h-24 text-white text-sm sm:text-base" placeholder="O que te impede de escalar hoje?" />
             </div>
           </div>
         </FormSection>
 
         <FormSection number="04" title="Alquimia Criativa" subtitle="Estética e Tom de Voz">
-          <div className="space-y-8">
+          <div className="space-y-5 sm:space-y-8">
             <div className="group">
-              <label className="block font-mono text-[10px] text-gray-500 uppercase mb-3 group-focus-within:text-[#00FF00] transition-colors">Referências de Benchmark</label>
-              <input required type="text" name="visualReferences" value={formData.visualReferences} onChange={handleInputChange} className="w-full p-5 text-white" placeholder="3 marcas que te inspiram" />
+              <label className="block font-mono text-[9px] sm:text-[10px] text-gray-500 uppercase mb-2 group-focus-within:text-[#00FF00] transition-colors">Referências de Benchmark</label>
+              <input required type="text" name="visualReferences" value={formData.visualReferences} onChange={handleInputChange} className="w-full p-4 sm:p-5 text-white text-sm sm:text-base" placeholder="3 marcas que te inspiram" />
             </div>
             <div className="group">
-              <label className="block font-mono text-[10px] text-gray-500 uppercase mb-3 group-focus-within:text-[#00FF00] transition-colors">Personalidade da Marca</label>
-              <input required type="text" name="voiceTone" value={formData.voiceTone} onChange={handleInputChange} className="w-full p-5 text-white" placeholder="Ex: Especialista, Descontraída, etc..." />
+              <label className="block font-mono text-[9px] sm:text-[10px] text-gray-500 uppercase mb-2 group-focus-within:text-[#00FF00] transition-colors">Personalidade da Marca</label>
+              <input required type="text" name="voiceTone" value={formData.voiceTone} onChange={handleInputChange} className="w-full p-4 sm:p-5 text-white text-sm sm:text-base" placeholder="Ex: Especialista, Descontraída, etc..." />
             </div>
             <div className="group">
-              <label className="block font-mono text-[10px] text-gray-500 uppercase mb-3 group-focus-within:text-[#00FF00] transition-colors">Visão de Sucesso (6 Meses)</label>
-              <textarea required name="successGoal" value={formData.successGoal} onChange={handleInputChange} className="w-full p-5 h-24 text-white" placeholder="Qual o KPI de felicidade para este projeto?" />
+              <label className="block font-mono text-[9px] sm:text-[10px] text-gray-500 uppercase mb-2 group-focus-within:text-[#00FF00] transition-colors">Visão de Sucesso (6 Meses)</label>
+              <textarea required name="successGoal" value={formData.successGoal} onChange={handleInputChange} className="w-full p-4 sm:p-5 h-20 sm:h-24 text-white text-sm sm:text-base" placeholder="Qual o KPI de felicidade para este projeto?" />
             </div>
           </div>
         </FormSection>
 
-        <div className="mt-20 flex flex-col items-center md:items-end pb-32">
-          <p className="font-mono text-[9px] text-gray-600 uppercase mb-6 tracking-widest italic">
-            [Aviso: Os dados serão transmitidos sob protocolo de segurança VM]
+        <div className="mt-12 sm:mt-20 flex flex-col items-center md:items-end">
+          <p className="font-mono text-[7px] sm:text-[9px] text-gray-600 uppercase mb-6 tracking-widest italic text-center md:text-right">
+            [Aviso: Transmissão sob protocolo seguro VM]
           </p>
           <button 
             type="submit"
-            className="group relative px-16 py-6 bg-[#00FF00] text-black font-black uppercase tracking-[0.3em] transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(0,255,0,0.2)] hover:shadow-[0_0_50px_rgba(0,255,0,0.4)]"
+            className="w-full sm:w-auto group relative px-8 sm:px-16 py-4 sm:py-6 bg-[#00FF00] text-black font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(0,255,0,0.2)] hover:shadow-[0_0_50px_rgba(0,255,0,0.4)] text-sm sm:text-base"
           >
             Transmitir Diagnóstico
             <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity" />
@@ -300,13 +303,13 @@ const App: React.FC = () => {
         </div>
       </form>
 
-      <footer className="fixed bottom-0 left-0 w-full py-5 bg-black/90 backdrop-blur-md border-t border-gray-900 z-50">
-        <div className="max-w-4xl mx-auto px-6 flex justify-between items-center text-[9px] font-mono text-gray-600 uppercase tracking-widest">
-          <div className="flex items-center gap-3">
+      <footer className="fixed bottom-0 left-0 w-full py-4 sm:py-5 bg-black/90 backdrop-blur-md border-t border-gray-900 z-[60]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-[7px] sm:text-[9px] font-mono text-gray-600 uppercase tracking-widest text-center sm:text-left">
+          <div className="flex items-center gap-2 sm:gap-3">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00FF00] animate-pulse" />
             <span>VMsolutions // Engineering House</span>
           </div>
-          <span className="hidden md:block opacity-30">© 2026 Code. Craft. Culture.</span>
+          <span className="opacity-30 hidden xs:block">© 2026 Code. Craft. Culture.</span>
           <span className="text-[#00FF00]/50 font-bold">Aclimação_V.Mariana_Global</span>
         </div>
       </footer>
